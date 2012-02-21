@@ -114,9 +114,9 @@
   (forward-line -1)
   (beginning-of-line)
   (skip-syntax-forward " ")
-  (if (looking-at "/\\*")
-      (+ 1 (current-column))
-    (current-column)))
+  (cond ((looking-at "/\\*\\*") (+ 2 (current-column)))
+        ((looking-at "/\\*") (+ 1 (current-column)))
+        (t (current-column))))
 
 (defun scala-block-indentation ()
   (let ((block-start-eol (scala-point-after (end-of-line)))
